@@ -2,6 +2,19 @@
 <?php
 include "config.php";
 
+//Read data from file excel
+require_once __DIR__ . '/vendor/excel_reader/excel_reader.php';
+
+$excel = new PhpExcelReader;// creates object instance of the class
+$excel->read('data/data.xls'); // reads and stores the excel file data
+
+$data_username_pass_from_excel = $excel->sheets[0]['cells'];
+//foreach ($data_username_pass_from_excel as $data) {
+//    print_r($data);
+//}
+//End read data from file excel
+
+
 $error = '';
 if (isset($_SESSION['user'])) {
     header("Location:login.php");
@@ -11,12 +24,15 @@ if (isset($_POST['login'])) {
     $username = (isset($_POST['username']) ? $_POST['username'] : '');
     $password = (isset($_POST['password']) ? $_POST['password'] : '');
     $pass = $_POST['pass'];
-    if ($username == USER_NAME && $password == PASS_WORD) {
-        $_SESSION['username'] = $username;
-        header("Location:" . URL_INDEX);
-    } else {
-        $error = "<p class='text-center text-danger w-100'>Invalid UserName or Password</p>";
+
+    foreach ($data_username_pass_from_excel as $data) {
+        if ($username == $data[1] && ($password == $data[2] || $password == $data[1] . PASS_WORD)) {
+            $_SESSION['username'] = $username;
+            header("Location:" . URL_INDEX);
+        }
     }
+
+    $error = "<p class='text-center text-danger w-100'>Invalid UserName or Password</p>";
 }
 ?>
 <!DOCTYPE html>
