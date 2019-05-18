@@ -1,6 +1,7 @@
 <?php session_start(); ?>
 <?php
 include "config.php";
+include "includes/validate.php";
 
 //Read data from file excel
 require_once __DIR__ . '/vendor/excel_reader/excel_reader.php';
