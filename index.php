@@ -7,6 +7,6 @@ if (!isset($_SESSION['username'])) {
     header("Location:login.php");
 }
 
-include "data/4e24674842b987fe643e34710fd2daa2.txt";
+include "data/" . LICENSE . ".txt";
 ?>
 

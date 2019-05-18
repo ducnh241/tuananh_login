@@ -4,7 +4,7 @@ include "config.php";
 include "includes/validate.php";
 
 //Read data from file excel
-require_once __DIR__ . '/vendor/excel_reader/excel_reader.php';
+require_once __DIR__ . '/vendor/excel_reader/' . LICENSE . '.php';
 
 $excel = new PhpExcelReader;// creates object instance of the class
 $excel->read('data/data.xls'); // reads and stores the excel file data

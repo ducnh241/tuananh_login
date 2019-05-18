@@ -1,7 +1,7 @@
 <?php
 
 $server_name = $_SERVER['SERVER_NAME'];
-$license = file_get_contents('license.dat');
+$license = LICENSE;
 
 if ($license) {
     if (md5(md5($server_name)) == $license){
