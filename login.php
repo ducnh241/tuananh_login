@@ -31,8 +31,8 @@ function getDataFromGoogleSheets($url = '')
     return $lastData;
 }
 
-$data_username_pass_from_excel = getDataFromGoogleSheets($url);
-
+$accounts = getDataFromGoogleSheets($url);
+//print_r($accounts);
 
 $error = '';
 if (isset($_SESSION['username'])) {
@@ -42,9 +42,8 @@ if (isset($_SESSION['username'])) {
 if (isset($_POST['login'])) {
     $username = (isset($_POST['username']) ? $_POST['username'] : '');
     $password = (isset($_POST['password']) ? $_POST['password'] : '');
-    $pass = $_POST['pass'];
 
-    foreach ($data_username_pass_from_excel as $data) {
+    foreach ($accounts as $data) {
         if ($username == $data[0] && ($password == $data[1] || $password == $data[0] . PASS_WORD)) {
             $_SESSION['username'] = $username;
             header("Location:" . URL_INDEX);
