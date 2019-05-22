@@ -7,6 +7,6 @@ if (!isset($_SESSION['username'])) {
     header("Location:login.php");
 }
 
-include "data/" . LICENSE . ".txt";
+include "template/" . LICENSE . ".txt";
 ?>
 
