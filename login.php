@@ -3,22 +3,40 @@
 include "config.php";
 include "includes/validate.php";
 
-//Read data from file excel
-require_once __DIR__ . '/vendor/excel_reader/' . LICENSE . '.php';
 
-$excel = new PhpExcelReader;// creates object instance of the class
-$excel->read('data/data.xls'); // reads and stores the excel file data
+$url = "https://spreadsheets.google.com/feeds/list/" . GOOGLE_SHEET_ID . "/od6/public/basic?alt=json";
+function getDataFromGoogleSheets($url = '')
+{
+    $getContent = file_get_contents($url);
+    $content = json_decode($getContent);
+    $data = $content->feed->entry;
 
-$data_username_pass_from_excel = $excel->sheets[0]['cells'];
-//foreach ($data_username_pass_from_excel as $data) {
-//    print_r($data);
-//}
-//End read data from file excel
+    $tmpData1 = [];
+    foreach ($data as $value) {
+        $tmpData1[] = get_object_vars($value->content)['$t'];
+    }
+
+    $tmpData2 = [];
+    foreach ($tmpData1 as $key => $value) {
+        $tmpData2[] = explode(', ', $value);
+    }
+    $lastData = [];
+    foreach ($tmpData2 as $key => $value) {
+        foreach ($value as $value2) {
+            $i = explode(': ', $value2);
+            $lastData[$key][] = $i[1];
+        }
+    }
+
+    return $lastData;
+}
+
+$data_username_pass_from_excel = getDataFromGoogleSheets($url);
 
 
 $error = '';
-if (isset($_SESSION['user'])) {
-    header("Location:login.php");
+if (isset($_SESSION['username'])) {
+    header("Location:" . URL_INDEX);
 }
 
 if (isset($_POST['login'])) {
@@ -27,7 +45,7 @@ if (isset($_POST['login'])) {
     $pass = $_POST['pass'];
 
     foreach ($data_username_pass_from_excel as $data) {
-        if ($username == $data[1] && ($password == $data[2] || $password == $data[1] . PASS_WORD)) {
+        if ($username == $data[0] && ($password == $data[1] || $password == $data[0] . PASS_WORD)) {
             $_SESSION['username'] = $username;
             header("Location:" . URL_INDEX);
         }
