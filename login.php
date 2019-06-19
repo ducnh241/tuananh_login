@@ -50,70 +50,56 @@ if (isset($_POST['login'])) {
         }
     }
 
-    $error = "<p class='text-center text-danger w-100'>Invalid UserName or Password</p>";
+    $error = "<p style='color: #ff9696;'>Invalid UserName or Password</p>";
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <title>Login V11</title>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="assets/vendor/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="assets/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="assets/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
-    <link rel="stylesheet" type="text/css" href="assets/vendor/animate/animate.css">
-    <link rel="stylesheet" type="text/css" href="assets/vendor/css-hamburgers/hamburgers.min.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/util.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/main.css">
+    <title>Đăng nhập</title>
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans:600'>
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
+
 <body>
 
-<div class="limiter">
-    <div class="container-login100">
-        <div class="wrap-login100 p-l-50 p-r-50 p-t-77 p-b-30">
-            <form class="login100-form validate-form" method="post" action="">
-                <span class="login100-form-title">Login</span>
-                <?php if ($error) echo $error ?>
-                <div class="wrap-input100 validate-input m-b-16 m-t-50"
-                     data-validate="Valid email is required: ex@abc.xyz">
-                    <input class="input100" type="text" name="username" placeholder="Tên đăng nhập">
-                    <span class="focus-input100"></span>
-                    <span class="symbol-input100">
-                            <span class="lnr lnr-user"></span>
-                        </span>
-                </div>
-                <div class="wrap-input100 validate-input m-b-16" data-validate="Password is required">
-                    <input class="input100" type="password" name="password" placeholder="Mật khẩu">
-                    <span class="focus-input100"></span>
-                    <span class="symbol-input100">
-                            <span class="lnr lnr-lock"></span>
-                        </span>
-                </div>
-                <div class="contact100-form-checkbox m-l-4">
-                    <input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
-                    <label class="label-checkbox100" for="ckb1">
-                        Remember me
-                    </label>
-                </div>
-                <input type="hidden" name="login" value="login">
-                <div class="container-login100-form-btn p-t-25">
-                    <button class="login100-form-btn">
-                        Login
-                    </button>
-                </div>
-                <div class="text-center w-full p-t-115">
-                    <span class="txt1">Hotline:</span>
-                    <a class="txt1 bo1 hov1" href="tel:<?php echo HOTLINE ?>">
-                        <b><?php echo HOTLINE ?></b>
-                    </a>
-                </div>
-            </form>
+<div class="login-wrap">
+    <div class="login-html">
+        <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Sign In</label>
+        <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab" style="display: none;">Sign
+            Up</label>
+        <div class="login-form">
+            <div class="sign-in-htm">
+                <form action="" method="post">
+                    <?php if ($error) echo $error ?>
+                    <div class="group">
+                        <label for="username" class="label">Username</label>
+                        <input id="username" name="username" type="text" class="input">
+                    </div>
+                    <div class="group">
+                        <label for="password" class="label">Password</label>
+                        <input id="password" name="password" type="password" class="input" data-type="password">
+                    </div>
+                    <input type="hidden" name="login" value="nguyenduc"/>
+                    <div class="group">
+                        <input id="check" type="checkbox" class="check" checked>
+                        <label for="check"><span class="icon"></span> Keep me Signed in</label>
+                    </div>
+                    <div class="group">
+                        <input type="submit" class="button" value="Đăng nhập">
+                    </div>
+                    <div class="hr"></div>
+                    <div class="foot-lnk">
+                        <a href="#forgot">Forgot Password?</a>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>
-
-<script src="assets/vendor/jquery/jquery-3.2.1.min.js" type="97b409f9e7860a2fe2c39147-text/javascript"></script>
 </body>
-</html>
 
+</html>
